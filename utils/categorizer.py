@@ -1,0 +1,1 @@
+# transaction categorization logic, the work of the accountant
