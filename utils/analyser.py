@@ -1,1 +1,0 @@
-# analyses data and generates reports probably financial insights

@@ -1,1 +1,0 @@
-# load and clean csv file from folder data in parent dir
