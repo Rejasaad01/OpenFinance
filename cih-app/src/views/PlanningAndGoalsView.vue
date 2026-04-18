@@ -1,7 +1,5 @@
 <template>
-  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen relative">
-    <TopBar />
-    
+  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen bg-background relative">
     <!-- Main Content -->
     <main class="flex-1 px-8 lg:px-12 py-8 max-w-[1600px] mx-auto w-full">
       <!-- Header Section -->
@@ -267,10 +265,6 @@
     </main>
   </div>
 </template>
-
-<script setup>
-import TopBar from '../components/TopBar.vue'
-</script>
 
 <style scoped>
 input[type=range].custom-range {

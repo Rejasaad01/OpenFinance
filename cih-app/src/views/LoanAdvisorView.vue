@@ -1,7 +1,5 @@
 <template>
-  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen relative">
-    <TopBar />
-    
+  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen bg-background relative">
     <!-- Main Canvas Area -->
     <main class="pt-8 px-12 pb-24 max-w-[1600px] mx-auto w-full flex-1">
       <!-- Page Header -->
@@ -84,7 +82,7 @@
         </div>
 
         <!-- Right Column: Interactive Simulator (Glassmorphism) -->
-        <div class="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-32">
+        <div class="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-8">
           <div class="bg-surface-container-lowest/90 backdrop-blur-3xl rounded-xl p-8 shadow-[0_40px_60px_-15px_rgba(0,0,0,0.02)] border border-white/50 relative overflow-hidden">
             <!-- Subtle ambient glow behind the card -->
             <div class="absolute top-0 right-0 w-64 h-64 bg-primary-fixed rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
@@ -139,10 +137,6 @@
     </main>
   </div>
 </template>
-
-<script setup>
-import TopBar from '../components/TopBar.vue'
-</script>
 
 <style scoped>
 /* Custom range slider styling for the simulator */

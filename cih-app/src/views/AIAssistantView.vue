@@ -1,8 +1,5 @@
 <template>
-  <div class="flex-1 ml-0 md:ml-72 flex flex-col min-h-screen relative overflow-hidden">
-    <!-- TopAppBar -->
-    <TopBar />
-
+  <div class="flex-1 ml-0 md:ml-72 flex flex-col min-h-screen bg-background relative overflow-hidden">
     <!-- Chat Area -->
     <div class="flex-1 overflow-y-auto pt-8 pb-40 px-12 lg:px-24 xl:px-48 flex flex-col gap-8 scroll-smooth">
       <!-- Welcome Message -->
@@ -47,21 +44,21 @@
           <h3 class="font-headline font-bold text-on-surface text-lg group-hover:text-secondary-container transition-colors">Build a monthly budget</h3>
         </button>
       </div>
+
+      <div class="flex items-center gap-2 mt-2 mb-8 overflow-x-auto no-scrollbar py-1 px-1 w-full max-w-4xl mx-auto">
+        <button v-for="(mode, index) in modes" :key="index"
+                @click="selectMode(mode)" 
+                class="px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border"
+                :class="activeMode === mode.name ? 'bg-primary text-white border-primary' : 'bg-white text-slate-600 border-outline-variant/30 hover:border-primary/50'">
+          {{ mode.name }}
+        </button>
+      </div>
     </div>
 
     <!-- Bottom Chat Input -->
     <div class="absolute bottom-0 left-0 w-full px-12 lg:px-24 xl:px-48 pb-12 pt-8 bg-gradient-to-t from-surface via-surface to-transparent z-30">
       <div class="max-w-4xl mx-auto relative group">
         <div class="absolute -inset-1 bg-gradient-to-r from-primary-fixed to-secondary-fixed rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-        
-        <div class="flex items-center gap-2 mb-4 overflow-x-auto no-scrollbar py-1 px-1">
-          <button v-for="(mode, index) in modes" :key="index"
-                  @click="selectMode(mode)" 
-                  class="px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border"
-                  :class="activeMode === mode.name ? 'bg-primary text-white border-primary' : 'bg-white text-slate-600 border-outline-variant/30 hover:border-primary/50'">
-            {{ mode.name }}
-          </button>
-        </div>
         
         <div class="relative bg-surface-container-lowest rounded-xl shadow-[0_20px_60px_-15px_rgba(23,28,31,0.05)] flex items-center p-2 pl-6 border border-outline-variant/20 focus-within:border-secondary/20 focus-within:shadow-[0_20px_60px_-15px_rgba(23,28,31,0.1)] transition-all">
           <button class="text-on-surface-variant hover:text-primary p-2">
@@ -85,7 +82,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import TopBar from '../components/TopBar.vue'
 
 const modes = ref([
   { name: 'General Banking Help', placeholder: 'Ask Cognitive Vault anything about your finances...' },

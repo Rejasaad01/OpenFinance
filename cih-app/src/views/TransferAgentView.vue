@@ -1,7 +1,5 @@
 <template>
   <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen bg-background relative pb-32">
-    <TopBar />
-    
     <!-- Canvas Area -->
     <main class="flex-1 p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center max-w-5xl mx-auto w-full">
       <!-- Contextual Header -->
@@ -90,7 +88,3 @@
     </main>
   </div>
 </template>
-
-<script setup>
-import TopBar from '../components/TopBar.vue'
-</script>

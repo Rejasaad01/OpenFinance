@@ -1,7 +1,5 @@
 <template>
-  <div class="flex-1 ml-0 md:ml-72 min-h-screen pb-20 md:pb-0">
-    <TopBar />
-    
+  <div class="flex-1 ml-0 md:ml-72 min-h-screen bg-background pb-20 md:pb-0">
     <div class="p-8 lg:p-12 max-w-7xl mx-auto space-y-8">
       <WelcomeSection />
       
@@ -30,7 +28,6 @@
 </template>
 
 <script setup>
-import TopBar from '../components/TopBar.vue'
 import WelcomeSection from '../components/WelcomeSection.vue'
 import AccountCards from '../components/AccountCards.vue'
 import CashFlowChart from '../components/CashFlowChart.vue'
