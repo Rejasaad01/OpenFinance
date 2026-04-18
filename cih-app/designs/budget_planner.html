@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Budget Planner - Cognitive Vault</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e4e9ed",
+                    "surface-tint": "#2f5ea1",
+                    "on-tertiary-container": "#f79564",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#723700",
+                    "tertiary-fixed-dim": "#ffb693",
+                    "surface": "#f6fafe",
+                    "inverse-primary": "#a9c7ff",
+                    "inverse-on-surface": "#edf1f5",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#d6e3ff",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#954a00",
+                    "on-background": "#171c1f",
+                    "on-tertiary-fixed-variant": "#783206",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#004182",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-bright": "#f6fafe",
+                    "surface-dim": "#d6dade",
+                    "on-surface-variant": "#424750",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#dfe3e7",
+                    "outline-variant": "#c3c6d2",
+                    "tertiary-fixed": "#ffdbcb",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fd8100",
+                    "primary": "#002b5a",
+                    "on-primary-fixed-variant": "#0c4687",
+                    "on-secondary-container": "#5d2c00",
+                    "on-primary-fixed": "#001b3d",
+                    "surface-container-highest": "#dfe3e7",
+                    "tertiary": "#4e1c00",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eaeef2",
+                    "on-surface": "#171c1f",
+                    "secondary-fixed": "#ffdcc6",
+                    "on-secondary-fixed": "#301400",
+                    "surface-container-low": "#f0f4f8",
+                    "tertiary-container": "#712d02",
+                    "background": "#f6fafe",
+                    "inverse-surface": "#2c3134",
+                    "on-primary-container": "#84aff7",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb785"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f6fafe;
+            color: #171c1f;
+        }
+        h1, h2, h3, h4, h5, h6, .font-headline {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex">
+<!-- SideNavBar (from JSON) -->
+<nav class="bg-[#e4e9ed] dark:bg-slate-900 rounded-r-[3rem] h-screen w-72 fixed left-0 top-0 flex flex-col py-8 z-50">
+<div class="px-8 mb-12">
+<h1 class="font-['Manrope'] text-2xl font-black tracking-tighter text-[#004182] dark:text-white">Cognitive Vault</h1>
+<p class="font-['Manrope'] font-semibold tracking-tight text-sm text-[#004182] dark:text-blue-400 mt-1">Premium AI Banking</p>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-2">
+<!-- Inactive Nav Items -->
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+                        AI Assistant
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">flag</span>
+                        Goal Setter
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">insights</span>
+                        Spending Insights
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">description</span>
+                        File Analysis
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+                        Loan Advisor
+                    </a>
+</li>
+<!-- Active Nav Item -->
+<li>
+<a class="flex items-center gap-4 bg-white dark:bg-slate-800 text-[#004182] dark:text-blue-300 rounded-l-full ml-4 font-bold shadow-sm px-4 py-4 scale-95 active:scale-90 transition-all font-['Manrope'] tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+                        Budget Planner
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">notifications</span>
+                        Alerts
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 font-['Manrope'] font-semibold tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined">person</span>
+                        Profile
+                    </a>
+</li>
+</ul>
+</div>
+<div class="px-8 mt-auto">
+<button class="w-full bg-secondary-container text-on-secondary-container rounded-xl py-4 font-body font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                New Transaction
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-72 flex flex-col min-h-screen">
+<!-- TopAppBar (from JSON) -->
+<header class="bg-[#f6fafe]/80 dark:bg-slate-950/80 backdrop-blur-xl flex justify-between items-center px-12 py-6 w-full sticky top-0 z-40">
+<div class="flex items-center gap-8">
+<div class="hidden">
+<span class="font-['Manrope'] text-xl font-bold text-[#004182] dark:text-white">Cognitive Vault</span>
+</div>
+<nav class="hidden lg:flex gap-6">
+<a class="font-['Manrope'] text-sm font-medium text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">General Banking</a>
+<a class="font-['Manrope'] text-sm font-medium text-[#004182] dark:text-blue-400 border-b-4 border-[#fd8100] pb-2 cursor-pointer opacity-100 hover:opacity-80" href="#">Spending Coach</a>
+<a class="font-['Manrope'] text-sm font-medium text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">Goal Planner</a>
+<a class="font-['Manrope'] text-sm font-medium text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">Loan Advisor</a>
+<a class="font-['Manrope'] text-sm font-medium text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">File Analyst</a>
+<a class="font-['Manrope'] text-sm font-medium text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">Transfer Agent</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-highest rounded-full pl-10 pr-4 py-2 text-sm font-body focus:outline-none focus:ring-2 focus:ring-secondary/20 border-none w-64 placeholder:text-outline" placeholder="Search..." type="text"/>
+</div>
+<button class="text-[#004182] dark:text-blue-400 hover:text-[#fd8100] transition-all"><span class="material-symbols-outlined">settings</span></button>
+<button class="text-[#004182] dark:text-blue-400 hover:text-[#fd8100] transition-all"><span class="material-symbols-outlined">help</span></button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-surface-container-lowest shadow-sm">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a young professional man with a neat beard, smiling softly, natural lighting, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgYRbzR3wCjxOIm2g4QKAFDo0Y7tX-a-sVpROpPB66jhmyETwRLHmDMOBPMlaTTS10VOEWdYj1010NPEg_2OszZfydYdW4Bo3nH9v0bv3z0b_donhwNvSDiov_aWc9b-ilrPKviwWXRt6NE360zeI0FkDWGoncoKXCTYL8gQgfPz2zXhbU8ADyLr_CyJj_8RnRP6tnyj9I011KZ1_1QkTyj6lPRmRTZo9kWnadcgzOe8aP1Urj03U0EBhXyqCyy3BkLmAEpKLE_MZh"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 px-12 py-8 max-w-7xl mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-12 flex justify-between items-end">
+<div>
+<h2 class="font-headline text-5xl font-extrabold tracking-tight text-primary-container mb-2">Monthly Allocation</h2>
+<p class="font-body text-on-surface-variant text-lg">Adjust your budget distribution for October 2023.</p>
+</div>
+<div class="bg-surface-container-low rounded-xl px-6 py-3 flex items-center gap-4">
+<span class="font-body text-sm text-on-surface-variant">Total Income Available</span>
+<span class="font-headline text-2xl font-bold text-primary-container">$8,450.00</span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Sliders (Takes up 8 columns) -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Sliders Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline text-2xl font-bold text-on-surface">Category Budgets</h3>
+<button class="text-sm font-body font-semibold text-primary hover:text-secondary-container transition-colors">Reset to Default</button>
+</div>
+<div class="space-y-8">
+<!-- Category 1 -->
+<div class="group">
+<div class="flex justify-between items-end mb-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">home</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Housing &amp; Utilities</h4>
+<p class="font-body text-xs text-on-surface-variant">Fixed expenses</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline font-bold text-lg text-primary-container">$2,800</span>
+<p class="font-body text-xs text-on-surface-variant">33% of total</p>
+</div>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" max="4000" min="0" type="range" value="2800"/>
+</div>
+<!-- Category 2 -->
+<div class="group">
+<div class="flex justify-between items-end mb-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Food &amp; Dining</h4>
+<p class="font-body text-xs text-on-surface-variant">Groceries &amp; Eating out</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline font-bold text-lg text-primary-container">$1,200</span>
+<p class="font-body text-xs text-on-surface-variant">14% of total</p>
+</div>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" max="2000" min="0" type="range" value="1200"/>
+</div>
+<!-- Category 3 -->
+<div class="group">
+<div class="flex justify-between items-end mb-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Transportation</h4>
+<p class="font-body text-xs text-on-surface-variant">Fuel, Transit, Maintenance</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline font-bold text-lg text-primary-container">$600</span>
+<p class="font-body text-xs text-on-surface-variant">7% of total</p>
+</div>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" max="1500" min="0" type="range" value="600"/>
+</div>
+<!-- Category 4 -->
+<div class="group">
+<div class="flex justify-between items-end mb-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">savings</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Savings &amp; Investments</h4>
+<p class="font-body text-xs text-on-surface-variant">Future growth</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline font-bold text-lg text-secondary-container">$1,850</span>
+<p class="font-body text-xs text-on-surface-variant">22% of total</p>
+</div>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary-container" max="3000" min="0" type="range" value="1850"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: AI & Health (Takes up 4 columns) -->
+<div class="col-span-12 lg:col-span-4 space-y-8 flex flex-col">
+<!-- Health Gauge -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex-1 flex flex-col justify-center items-center text-center">
+<h3 class="font-headline text-lg font-bold text-on-surface mb-6 self-start w-full text-left">Financial Health</h3>
+<!-- Semi-circle Gauge -->
+<div class="relative w-48 h-24 overflow-hidden mb-6">
+<div class="absolute top-0 left-0 w-48 h-48 rounded-full border-[16px] border-surface-container-highest"></div>
+<!-- Active part of gauge (Excellent) -->
+<div class="absolute top-0 left-0 w-48 h-48 rounded-full border-[16px] border-secondary-container" style="clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); transform: rotate(135deg);"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 text-center">
+<span class="font-headline text-3xl font-extrabold text-primary-container block leading-none">88</span>
+<span class="font-body text-xs text-on-surface-variant uppercase tracking-wider">Score</span>
+</div>
+</div>
+<div class="flex justify-between w-full font-body text-xs text-on-surface-variant font-medium px-4">
+<span>Risky</span>
+<span>Safe</span>
+<span class="text-secondary-container font-bold">Excellent</span>
+</div>
+</div>
+<!-- AI Insights -->
+<div class="bg-primary-fixed/30 rounded-xl p-8 relative overflow-hidden backdrop-blur-md">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl text-primary">smart_toy</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary-container">lightbulb</span>
+<h3 class="font-headline text-lg font-bold text-primary-container">AI Suggestion</h3>
+</div>
+<p class="font-body text-sm text-on-surface mb-6 leading-relaxed">
+                                You are currently allocating 14% to Food &amp; Dining. By reducing this to 10% ($845), you could increase your monthly Savings contribution and hit your 'Vacation Fund' goal 2 months earlier.
+                            </p>
+<button class="w-full bg-primary-container text-on-primary font-body font-semibold py-3 rounded-full hover:bg-primary transition-colors">
+                                Apply Suggestion
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-12 flex justify-end gap-4">
+<button class="px-8 py-3 rounded-full font-body font-semibold text-primary hover:bg-surface-container-high transition-colors">
+                    Discard Changes
+                </button>
+<button class="px-8 py-3 rounded-xl bg-secondary-container text-on-secondary-container font-body font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-secondary-container/20">
+                    Save Allocation
+                </button>
+</div>
+</main>
+</div>
+</body></html>

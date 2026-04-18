@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Transfer Agent - Cognitive Vault</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e4e9ed",
+                        "surface-tint": "#2f5ea1",
+                        "on-tertiary-container": "#f79564",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#723700",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "surface": "#f6fafe",
+                        "inverse-primary": "#a9c7ff",
+                        "inverse-on-surface": "#edf1f5",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#d6e3ff",
+                        "outline": "#737781",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#954a00",
+                        "on-background": "#171c1f",
+                        "on-tertiary-fixed-variant": "#783206",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#004182",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-bright": "#f6fafe",
+                        "surface-dim": "#d6dade",
+                        "on-surface-variant": "#424750",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dfe3e7",
+                        "outline-variant": "#c3c6d2",
+                        "tertiary-fixed": "#ffdbcb",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fd8100",
+                        "primary": "#002b5a",
+                        "on-primary-fixed-variant": "#0c4687",
+                        "on-secondary-container": "#5d2c00",
+                        "on-primary-fixed": "#001b3d",
+                        "surface-container-highest": "#dfe3e7",
+                        "tertiary": "#4e1c00",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eaeef2",
+                        "on-surface": "#171c1f",
+                        "secondary-fixed": "#ffdcc6",
+                        "on-secondary-fixed": "#301400",
+                        "surface-container-low": "#f0f4f8",
+                        "tertiary-container": "#712d02",
+                        "background": "#f6fafe",
+                        "inverse-surface": "#2c3134",
+                        "on-primary-container": "#84aff7",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb785"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-[#e4e9ed] dark:bg-slate-900 rounded-r-[3rem] h-screen w-72 fixed left-0 top-0 flex-col py-8 z-50 shadow-none border-none">
+<div class="px-8 mb-10 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-xl">
+                C
+            </div>
+<div>
+<h1 class="font-['Manrope'] text-2xl font-black tracking-tighter text-[#004182] dark:text-white">Cognitive Vault</h1>
+<p class="text-xs text-on-surface-variant font-medium">Premium AI Banking</p>
+</div>
+</div>
+<button class="mx-8 mb-8 bg-secondary-container text-on-secondary-container font-semibold py-3 px-6 rounded-xl hover:bg-opacity-90 transition-all flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">add</span>
+            New Transaction
+        </button>
+<div class="flex-1 overflow-y-auto font-['Manrope'] font-semibold tracking-tight text-sm">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-4 py-4 bg-white dark:bg-slate-800 text-[#004182] dark:text-blue-300 rounded-l-full ml-4 font-bold shadow-sm scale-95 transition-all" href="#">
+<span class="material-symbols-outlined ml-6" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+                        AI Assistant
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">flag</span>
+                        Goal Setter
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">insights</span>
+                        Spending Insights
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">description</span>
+                        File Analysis
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_balance</span>
+                        Loan Advisor
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_balance_wallet</span>
+                        Budget Planner
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+                        Alerts
+                    </a>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-4 border-none px-4">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 rounded-xl" href="#">
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full" data-alt="professional headshot of a man with short brown hair wearing a dark blue sweater against a soft gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLLHHv19UWeOKe3Ytgaf_lUD25oiFkNy9Fz1r1EHrBR90iUplM2ZBOCpEiOB4PYhW2yMhqa92kanpZ_PMJrzcCfTAl66E1-9nPoDQYUHHqW7KspdhRxfd02A-uuEXwTLmfTL5bgego6B_kkBOkhlAUJr_VkTAsgXfhgD1ysq_gBp-Js5M3nhusIZ2NHDUh2NTJ3cvUyEIRpRboIIGAWjeZ-rBgMqEN-hQXhLD9to4caaunW_H4bFbtYkQUxWQIOZtJ8zE8liAh_tSS"/>
+<span class="font-['Manrope'] font-semibold">Profile</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-0 md:ml-72 flex flex-col min-h-screen bg-background relative">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-12 py-6 w-full docked full-width top-0 bg-[#f6fafe]/80 dark:bg-slate-950/80 backdrop-blur-xl z-40 sticky transition-all no-line border-none">
+<div class="hidden md:flex flex-1 items-center justify-center space-x-8 font-['Manrope'] text-sm font-medium">
+<a class="text-slate-500 dark:text-slate-400 pb-2 cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all" href="#">General Banking</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all" href="#">Spending Coach</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all" href="#">Goal Planner</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all" href="#">Loan Advisor</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all" href="#">File Analyst</a>
+<a class="text-[#004182] dark:text-blue-400 border-b-4 border-[#fd8100] pb-2 cursor-pointer opacity-100 hover:opacity-80 transition-all font-bold" href="#">Transfer Agent</a>
+</div>
+<div class="flex items-center gap-6 ml-auto text-[#004182] dark:text-blue-400">
+<button class="cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all">
+<span class="material-symbols-outlined text-2xl">settings</span>
+</button>
+<button class="cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all">
+<span class="material-symbols-outlined text-2xl">help</span>
+</button>
+<img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-surface-container-low" data-alt="professional headshot of a man with short brown hair wearing a dark blue sweater against a soft gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQxj_PLPiqeDqlnjGM_07SfLlvjVFF4MfTVi5vgwynzk-zKWUwnk77ZFaC5POkD2LcjTHVL-HsKnw6l6b2Ha-D_dmAIU8E0grDNaA-Ly26yadGfU1GZCLz8kNzijvDJxrP1JJBkQ-cdeaXTPuEFKPrkAOoi-NyPRkI_IavA9hLRjd-UFZH0Ji8ZJs63o5aHq4HpgVlEoZGj_LMGcPy_YF-SGOQkc_zEradzSXTvup6pCcbs_NcArpO3EPGlxvIrx5Y_vi9cJXPQLdn"/>
+</div>
+</header>
+<!-- Canvas Area -->
+<main class="flex-1 p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center max-w-5xl mx-auto w-full pb-32">
+<!-- Contextual Header -->
+<div class="w-full mb-12 text-center">
+<h2 class="font-headline text-primary font-extrabold text-4xl md:text-5xl tracking-tight mb-4">Transfer Agent</h2>
+<p class="text-on-surface-variant font-body text-lg max-w-2xl mx-auto">I'm ready to help you securely move funds. Describe your request below.</p>
+</div>
+<!-- Central AI Interaction Area -->
+<div class="w-full max-w-3xl flex flex-col space-y-8">
+<!-- AI Message Bubble -->
+<div class="flex items-start gap-6 self-start max-w-[85%]">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center flex-shrink-0 shadow-sm mt-1">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl rounded-tl-sm shadow-sm">
+<p class="font-body text-on-surface leading-relaxed mb-6">I understand you want to initiate a transfer. Here are the details I've gathered. Please review them before proceeding.</p>
+<!-- AI Insight / Confirmation Card -->
+<div class="bg-primary-fixed bg-opacity-30 border border-primary-fixed rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline font-bold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">check_circle</span>
+                                    Ready for review
+                                </h3>
+<div class="space-y-3 font-body text-sm">
+<div class="flex justify-between border-b border-white border-opacity-40 pb-2">
+<span class="text-on-surface-variant font-medium">Recipient</span>
+<span class="font-bold text-primary">Mohammed</span>
+</div>
+<div class="flex justify-between border-b border-white border-opacity-40 pb-2">
+<span class="text-on-surface-variant font-medium">Amount</span>
+<span class="font-headline font-extrabold text-xl text-primary">500 DH</span>
+</div>
+</div>
+<div class="mt-6 flex flex-col sm:flex-row gap-4">
+<button class="flex-1 bg-secondary-container text-on-secondary-container font-semibold py-3 px-6 rounded-xl hover:bg-opacity-90 transition-all shadow-sm">
+                                        Review Transfer
+                                    </button>
+<button class="flex-1 bg-transparent text-primary font-semibold py-3 px-6 rounded-xl hover:bg-surface-container-low transition-all">
+                                        Edit Details
+                                    </button>
+</div>
+<p class="text-xs text-on-surface-variant mt-4 flex items-center gap-1 justify-center">
+<span class="material-symbols-outlined text-[14px]">lock</span> Secure cognitive verification active
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area (Fixed Bottom or contextual) -->
+<div class="fixed bottom-0 left-0 md:left-72 right-0 p-8 bg-gradient-to-t from-background via-background to-transparent pointer-events-none flex justify-center z-30">
+<div class="w-full max-w-3xl pointer-events-auto flex flex-col gap-4">
+<!-- Suggestion Chips -->
+<div class="flex flex-wrap gap-3 mb-2 px-2">
+<button class="bg-surface-container-highest text-on-surface text-sm font-medium py-2 px-4 rounded-full hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">contacts</span>
+                                Send money to a saved contact
+                            </button>
+<button class="bg-surface-container-highest text-on-surface text-sm font-medium py-2 px-4 rounded-full hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                                Review recent beneficiaries
+                            </button>
+</div>
+<!-- Main Input -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-2 flex items-center relative group">
+<div class="pl-4 pr-2 text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface font-body placeholder:text-outline py-4 px-2 w-full outline-none" placeholder="Type a transfer request, e.g. Send 500 DH to Mohammed" type="text"/>
+<button class="bg-primary-container text-on-primary w-12 h-12 rounded-xl flex items-center justify-center hover:bg-primary transition-colors shadow-sm absolute right-2 top-2">
+<span class="material-symbols-outlined">send</span>
+</button>
+<div class="absolute -inset-[1px] rounded-2xl border-2 border-transparent group-focus-within:border-secondary/30 pointer-events-none transition-colors rounded-xl"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
