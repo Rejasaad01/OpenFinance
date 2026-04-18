@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cognitive Vault - Loan Advisor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#e4e9ed",
+                      "surface-tint": "#2f5ea1",
+                      "on-tertiary-container": "#f79564",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed-variant": "#723700",
+                      "tertiary-fixed-dim": "#ffb693",
+                      "surface": "#f6fafe",
+                      "inverse-primary": "#a9c7ff",
+                      "inverse-on-surface": "#edf1f5",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#d6e3ff",
+                      "outline": "#737781",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#954a00",
+                      "on-background": "#171c1f",
+                      "on-tertiary-fixed-variant": "#783206",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#004182",
+                      "on-tertiary-fixed": "#351000",
+                      "surface-bright": "#f6fafe",
+                      "surface-dim": "#d6dade",
+                      "on-surface-variant": "#424750",
+                      "primary-fixed-dim": "#a9c7ff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-variant": "#dfe3e7",
+                      "outline-variant": "#c3c6d2",
+                      "tertiary-fixed": "#ffdbcb",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#fd8100",
+                      "primary": "#002b5a",
+                      "on-primary-fixed-variant": "#0c4687",
+                      "on-secondary-container": "#5d2c00",
+                      "on-primary-fixed": "#001b3d",
+                      "surface-container-highest": "#dfe3e7",
+                      "tertiary": "#4e1c00",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eaeef2",
+                      "on-surface": "#171c1f",
+                      "secondary-fixed": "#ffdcc6",
+                      "on-secondary-fixed": "#301400",
+                      "surface-container-low": "#f0f4f8",
+                      "tertiary-container": "#712d02",
+                      "background": "#f6fafe",
+                      "inverse-surface": "#2c3134",
+                      "on-primary-container": "#84aff7",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#ffb785"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Manrope"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "label": [
+                              "Inter"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { background-color: theme('colors.surface'); color: theme('colors.on-surface'); font-family: theme('fontFamily.body'); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom range slider styling for the simulator */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: theme('colors.secondary-container');
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 4px 12px rgba(253, 129, 0, 0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: theme('colors.surface-variant');
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+      </style>
+</head>
+<body class="flex min-h-screen overflow-x-hidden">
+<!-- SideNavBar from JSON -->
+<nav class="bg-[#e4e9ed] dark:bg-slate-900 rounded-r-[3rem] h-screen w-72 fixed left-0 top-0 flex flex-col py-8 z-40 border-none">
+<div class="px-8 mb-12">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-container to-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined icon-fill">account_balance</span>
+</div>
+<div>
+<h1 class="font-['Manrope'] text-2xl font-black tracking-tighter text-[#004182] dark:text-white leading-none">Cognitive Vault</h1>
+<p class="text-xs font-semibold text-[#004182]/60 dark:text-blue-400 mt-1">Premium AI Banking</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto mt-4 flex flex-col gap-2 font-['Manrope'] font-semibold tracking-tight text-sm">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+                AI Assistant
+            </a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">flag</span>
+                Goal Setter
+            </a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">insights</span>
+                Spending Insights
+            </a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+                File Analysis
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-4 bg-white dark:bg-slate-800 text-[#004182] dark:text-blue-300 rounded-l-full ml-4 font-bold shadow-sm py-4 px-6 scale-95 active:scale-90 transition-all relative" href="#">
+<div class="absolute right-[-10px] top-1/2 -translate-y-1/2 w-2 h-8 bg-[#fd8100] rounded-l-full"></div>
+<span class="material-symbols-outlined icon-fill">account_balance</span>
+                Loan Advisor
+            </a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                Budget Planner
+            </a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">notifications</span>
+                Alerts
+            </a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-8 py-4 hover:bg-[#f6fafe] dark:hover:bg-slate-700 transition-colors duration-300 scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+                Profile
+            </a>
+</div>
+<div class="px-8 mt-auto pt-8">
+<button class="w-full bg-gradient-to-r from-primary-container to-primary text-on-primary rounded-xl py-4 font-['Manrope'] font-bold text-sm shadow-lg shadow-primary-container/20 scale-95 active:scale-90 transition-all hover:opacity-90">
+                New Transaction
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="ml-72 flex-1 flex flex-col min-h-screen relative">
+<!-- TopAppBar from JSON -->
+<header class="flex justify-between items-center ml-72 px-12 py-6 w-[calc(100%-18rem)] fixed top-0 z-30 bg-[#f6fafe]/80 dark:bg-slate-950/80 backdrop-blur-xl no-line tonal shift via bg-white/50 font-['Manrope'] text-sm font-medium">
+<!-- Navigation Links -->
+<nav class="flex items-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">General Banking</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">Spending Coach</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">Goal Planner</a>
+<!-- Active Link -->
+<a class="text-[#004182] dark:text-blue-400 border-b-4 border-[#fd8100] pb-2 cursor-pointer opacity-100 hover:opacity-80 font-bold" href="#">Loan Advisor</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">File Analyst</a>
+<a class="text-slate-500 dark:text-slate-400 pb-2 hover:text-[#fd8100] transition-all cursor-pointer opacity-100 hover:opacity-80" href="#">Transfer Agent</a>
+</nav>
+<div class="flex items-center gap-6 text-[#004182] dark:text-blue-400">
+<button class="cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all"><span class="material-symbols-outlined">settings</span></button>
+<button class="cursor-pointer opacity-100 hover:opacity-80 hover:text-[#fd8100] transition-all"><span class="material-symbols-outlined">help</span></button>
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover ml-4 shadow-sm cursor-pointer hover:opacity-80 transition-opacity" data-alt="Close-up portrait of a professional woman in her 30s with warm natural lighting and soft background focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH2c8r_YScb_ZeABea8NFnW_L2cx249wNJNdfeI0XPNJfd9W7VExgCKAPsjO9MCv26O4d3mP9RmWAUeyAOHlRqry24HjXu07wFeyVQ41Gfzvn75qWJNX3J-BaTm8nl4IuoMtGxwuF4HUJf3KLC6tWr6I4z2_kEUa3kt5z4ClG5RkbQzO7pbvoMKI5qOGwkv2KfD0N5IYFeneMGgnw3R0dAaLf0ZeNK1rF3Nvs-ktzgbwcWjduX4M5MstugURqHeCEpcb3mcE4iaAhl"/>
+</div>
+</header>
+<!-- Main Canvas Area -->
+<main class="pt-32 px-12 pb-24 max-w-[1600px] mx-auto w-full flex-1">
+<!-- Page Header -->
+<div class="mb-12 max-w-3xl">
+<h2 class="font-headline text-5xl font-extrabold text-primary tracking-tight mb-4 leading-tight">Curated Funding Strategies</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-2xl font-body">Based on your recent 'Home Renovation' goal and steady cash flow, our AI has modeled optimal paths to leverage your equity without disturbing your core investments.</p>
+</div>
+<!-- Asymmetric Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Personalized Loan Cards (Bento style) -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-8">
+<!-- Primary Offer Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 relative overflow-hidden transition-transform duration-500 hover:shadow-[0_20px_60px_-15px_rgba(0,65,130,0.05)] group border border-outline-variant/10">
+<!-- Top Row: Badge & Context -->
+<div class="flex justify-between items-start mb-8">
+<div class="bg-primary-fixed text-on-primary-fixed-variant px-4 py-1.5 rounded-full text-sm font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                                Pre-Approved Candidate
+                            </div>
+<span class="text-on-surface-variant font-medium text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">history</span> Exp. in 14 days
+                            </span>
+</div>
+<!-- Main Info -->
+<div class="grid grid-cols-2 gap-8 mb-8">
+<div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-2">Tailored Home Equity Line</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Access flexible capital based on the accrued value of your primary residence.</p>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Estimated APR</span>
+<span class="font-headline text-4xl font-extrabold text-primary tracking-tighter">6.45% <span class="text-lg font-medium text-on-surface-variant tracking-normal">Variable</span></span>
+</div>
+</div>
+<div class="flex items-center justify-end">
+<!-- Abstract graphical element representing growth/equity -->
+<div class="w-32 h-32 rounded-full border-8 border-surface-container-high relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-8 border-secondary-container rounded-r-none rounded-b-none border-t-secondary-container border-l-secondary-container transform rotate-45"></div>
+<div class="text-center">
+<span class="block text-xs font-medium text-on-surface-variant uppercase tracking-widest">Limit Up To</span>
+<span class="font-headline font-bold text-xl text-primary">$150k</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Explainability Section -->
+<div class="bg-surface rounded-lg p-6 flex gap-4 items-start">
+<div class="mt-1 w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-primary-container mb-1">Why this matches you</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-3">Your 'Goal Planner' indicates a $45,000 renovation project in Q3. Given your current LTV ratio of 62% and excellent payment history, drawing from equity is statistically 3.2% more cost-effective than liquidating your active stock portfolio.</p>
+<a class="text-secondary-container font-semibold text-sm hover:underline flex items-center gap-1" href="#">View Full Analysis <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+<!-- Secondary Offer Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 relative overflow-hidden border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-xl font-bold text-on-surface">Fixed-Rate Personal Loan</h3>
+<div class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                High Eligibility
+                            </div>
+</div>
+<div class="flex items-end justify-between">
+<div>
+<p class="text-on-surface-variant text-sm mb-2">For immediate, one-time capital needs.</p>
+<div class="font-headline text-2xl font-bold text-primary">8.15% <span class="text-sm font-medium text-on-surface-variant">APR Fixed</span></div>
+</div>
+<button class="text-primary font-semibold text-sm flex items-center gap-1 hover:text-primary-container transition-colors">
+                                Explore Terms <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Interactive Simulator (Glassmorphism) -->
+<div class="lg:col-span-5 xl:col-span-4 sticky top-32">
+<div class="bg-surface-container-lowest/90 backdrop-blur-3xl rounded-xl p-8 shadow-[0_40px_60px_-15px_rgba(0,0,0,0.02)] border border-white/50 relative overflow-hidden">
+<!-- Subtle ambient glow behind the card -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-fixed rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-secondary-container text-3xl">tune</span>
+<h3 class="font-headline text-2xl font-bold text-primary">Payment Simulator</h3>
+</div>
+<!-- Big Output Display -->
+<div class="bg-surface rounded-lg p-6 mb-8 text-center border border-outline-variant/20">
+<span class="block text-sm font-medium text-on-surface-variant uppercase tracking-wider mb-2">Estimated Monthly Payment</span>
+<div class="font-headline text-5xl font-black text-primary tracking-tighter mb-1">$485<span class="text-2xl font-medium text-on-surface-variant tracking-normal">.00</span></div>
+<span class="text-xs text-on-surface-variant">Based on 6.45% APR for 120 months</span>
+</div>
+<!-- Sliders -->
+<div class="space-y-8 mb-10">
+<div>
+<div class="flex justify-between items-end mb-4">
+<label class="font-semibold text-sm text-on-surface">Borrowing Amount</label>
+<span class="font-headline font-bold text-lg text-primary">$45,000</span>
+</div>
+<input class="w-full" max="150000" min="10000" type="range" value="45000"/>
+<div class="flex justify-between text-xs text-on-surface-variant mt-2 font-medium">
+<span>$10k</span>
+<span>$150k</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-4">
+<label class="font-semibold text-sm text-on-surface">Term Length</label>
+<span class="font-headline font-bold text-lg text-primary">10 Years</span>
+</div>
+<input class="w-full" max="30" min="5" step="5" type="range" value="10"/>
+<div class="flex justify-between text-xs text-on-surface-variant mt-2 font-medium">
+<span>5 Yrs</span>
+<span>30 Yrs</span>
+</div>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="w-full bg-secondary-container text-on-secondary-container hover:bg-[#ff952a] rounded-xl py-4 font-headline font-bold text-base shadow-lg shadow-secondary-container/20 transition-all active:scale-95 flex items-center justify-center gap-2">
+                                Start Application <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<p class="text-center text-xs text-on-surface-variant mt-4">Checking rates will not affect your credit score.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

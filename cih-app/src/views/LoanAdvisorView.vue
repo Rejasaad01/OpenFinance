@@ -1,165 +1,223 @@
 <template>
-  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen bg-background relative">
-    <!-- Main Canvas Area -->
-    <main class="pt-8 px-12 pb-24 max-w-[1600px] mx-auto w-full flex-1">
-      <!-- Page Header -->
-      <div class="mb-12 max-w-3xl">
-        <h2 class="font-headline text-5xl font-extrabold text-primary tracking-tight mb-4 leading-tight">Curated Funding Strategies</h2>
-        <p class="text-on-surface-variant text-lg leading-relaxed max-w-2xl font-body">Based on your recent 'Home Renovation' goal and steady cash flow, our AI has modeled optimal paths to leverage your equity without disturbing your core investments.</p>
-      </div>
-
-      <!-- Asymmetric Grid Layout -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <!-- Left Column: Personalized Loan Cards (Bento style) -->
-        <div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-8">
-          <!-- Primary Offer Card -->
-          <div class="bg-surface-container-lowest rounded-xl p-8 relative overflow-hidden transition-transform duration-500 hover:shadow-[0_20px_60px_-15px_rgba(0,65,130,0.05)] group border border-outline-variant/10">
-            <!-- Top Row: Badge & Context -->
-            <div class="flex justify-between items-start mb-8">
-              <div class="bg-primary-fixed text-on-primary-fixed-variant px-4 py-1.5 rounded-full text-sm font-semibold flex items-center gap-2">
-                <span class="material-symbols-outlined text-[18px]">verified</span>
-                Pre-Approved Candidate
-              </div>
-              <span class="text-on-surface-variant font-medium text-sm flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px]">history</span> Exp. in 14 days
-              </span>
-            </div>
-            
-            <!-- Main Info -->
-            <div class="grid grid-cols-2 gap-8 mb-8">
-              <div>
-                <h3 class="font-headline text-2xl font-bold text-on-surface mb-2">Tailored Home Equity Line</h3>
-                <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Access flexible capital based on the accrued value of your primary residence.</p>
-                <div class="flex flex-col gap-1">
-                  <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Estimated APR</span>
-                  <span class="font-headline text-4xl font-extrabold text-primary tracking-tighter">6.45% <span class="text-lg font-medium text-on-surface-variant tracking-normal">Variable</span></span>
-                </div>
-              </div>
-              <div class="flex items-center justify-end">
-                <!-- Abstract graphical element representing growth/equity -->
-                <div class="w-32 h-32 rounded-full border-8 border-surface-container-high relative flex items-center justify-center">
-                  <div class="absolute inset-0 rounded-full border-8 border-secondary-container rounded-r-none rounded-b-none border-t-secondary-container border-l-secondary-container transform rotate-45"></div>
-                  <div class="text-center">
-                    <span class="block text-xs font-medium text-on-surface-variant uppercase tracking-widest">Limit Up To</span>
-                    <span class="font-headline font-bold text-xl text-primary">$150k</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Explainability Section -->
-            <div class="bg-surface rounded-lg p-6 flex gap-4 items-start">
-              <div class="mt-1 w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-primary-container shrink-0">
-                <span class="material-symbols-outlined text-[20px]">psychology</span>
-              </div>
-              <div>
-                <h4 class="font-headline font-bold text-primary-container mb-1">Why this matches you</h4>
-                <p class="text-sm text-on-surface-variant leading-relaxed mb-3">Your 'Goal Planner' indicates a $45,000 renovation project in Q3. Given your current LTV ratio of 62% and excellent payment history, drawing from equity is statistically 3.2% more cost-effective than liquidating your active stock portfolio.</p>
-                <a class="text-secondary-container font-semibold text-sm hover:underline flex items-center gap-1" href="#">View Full Analysis <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-              </div>
-            </div>
+  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen bg-surface relative overflow-x-hidden">
+    <main class="flex-1 flex flex-col items-center justify-center p-6 md:p-12 max-w-5xl mx-auto w-full">
+      
+      <!-- Transitions for smooth state switching -->
+      <transition 
+        name="fade-slide" 
+        mode="out-in"
+      >
+        <!-- State 1: IDLE (Marketing) -->
+        <div v-if="status === 'idle'" class="text-center space-y-8 animate-in fade-in zoom-in-95 duration-700">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-widest mb-4">
+            <span class="material-symbols-outlined text-sm">auto_awesome</span>
+            AI-Powered Lending
           </div>
           
-          <!-- Secondary Offer Card -->
-          <div class="bg-surface-container-lowest rounded-xl p-8 relative overflow-hidden border border-outline-variant/10">
-            <div class="flex justify-between items-center mb-6">
-              <h3 class="font-headline text-xl font-bold text-on-surface">Fixed-Rate Personal Loan</h3>
-              <div class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                High Eligibility
-              </div>
+          <h1 class="text-5xl md:text-7xl font-headline font-black text-on-surface tracking-tight leading-tight max-w-4xl mx-auto">
+            Find the <span class="text-primary italic">Best Loan</span> for Your Financial Situation
+          </h1>
+          
+          <p class="text-on-surface-variant text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+            Discover optimized lending options tailored to your real-time financial profile. Click below to start your personalized analysis.
+          </p>
+          
+          <div class="pt-8">
+            <button 
+              @click="startAnalysis"
+              class="group relative bg-primary text-on-primary px-10 py-5 rounded-[2rem] font-headline font-black text-lg transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20 overflow-hidden"
+            >
+              <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none"></div>
+              <span class="relative flex items-center justify-center gap-3">
+                Analyze My Situation
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">bolt</span>
+              </span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16 opacity-60">
+            <div class="flex flex-col items-center gap-2">
+              <span class="material-symbols-outlined text-3xl">lock</span>
+              <span class="text-xs font-bold uppercase tracking-widest">Secure & Private</span>
             </div>
-            <div class="flex items-end justify-between">
-              <div>
-                <p class="text-on-surface-variant text-sm mb-2">For immediate, one-time capital needs.</p>
-                <div class="font-headline text-2xl font-bold text-primary">8.15% <span class="text-sm font-medium text-on-surface-variant">APR Fixed</span></div>
-              </div>
-              <button class="text-primary font-semibold text-sm flex items-center gap-1 hover:text-primary-container transition-colors">
-                Explore Terms <span class="material-symbols-outlined text-[18px]">chevron_right</span>
-              </button>
+            <div class="flex flex-col items-center gap-2 border-x border-outline-variant/20 px-6">
+              <span class="material-symbols-outlined text-3xl">speed</span>
+              <span class="text-xs font-bold uppercase tracking-widest">Instant Results</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <span class="material-symbols-outlined text-3xl">verified</span>
+              <span class="text-xs font-bold uppercase tracking-widest">Best Rates Guaranteed</span>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Interactive Simulator (Glassmorphism) -->
-        <div class="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-8">
-          <div class="bg-surface-container-lowest/90 backdrop-blur-3xl rounded-xl p-8 shadow-[0_40px_60px_-15px_rgba(0,0,0,0.02)] border border-white/50 relative overflow-hidden">
-            <!-- Subtle ambient glow behind the card -->
-            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-fixed rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
-            <div class="relative z-10">
-              <div class="flex items-center gap-3 mb-8">
-                <span class="material-symbols-outlined text-secondary-container text-3xl">tune</span>
-                <h3 class="font-headline text-2xl font-bold text-primary">Payment Simulator</h3>
-              </div>
-              
-              <!-- Big Output Display -->
-              <div class="bg-surface rounded-lg p-6 mb-8 text-center border border-outline-variant/20">
-                <span class="block text-sm font-medium text-on-surface-variant uppercase tracking-wider mb-2">Estimated Monthly Payment</span>
-                <div class="font-headline text-5xl font-black text-primary tracking-tighter mb-1">$485<span class="text-2xl font-medium text-on-surface-variant tracking-normal">.00</span></div>
-                <span class="text-xs text-on-surface-variant">Based on 6.45% APR for 120 months</span>
-              </div>
-              
-              <!-- Sliders -->
-              <div class="space-y-8 mb-10">
-                <div>
-                  <div class="flex justify-between items-end mb-4">
-                    <label class="font-semibold text-sm text-on-surface">Borrowing Amount</label>
-                    <span class="font-headline font-bold text-lg text-primary">$45,000</span>
-                  </div>
-                  <input class="w-full custom-range" max="150000" min="10000" type="range" value="45000"/>
-                  <div class="flex justify-between text-xs text-on-surface-variant mt-2 font-medium">
-                    <span>$10k</span>
-                    <span>$150k</span>
-                  </div>
-                </div>
-                <div>
-                  <div class="flex justify-between items-end mb-4">
-                    <label class="font-semibold text-sm text-on-surface">Term Length</label>
-                    <span class="font-headline font-bold text-lg text-primary">10 Years</span>
-                  </div>
-                  <input class="w-full custom-range" max="30" min="5" step="5" type="range" value="10"/>
-                  <div class="flex justify-between text-xs text-on-surface-variant mt-2 font-medium">
-                    <span>5 Yrs</span>
-                    <span>30 Yrs</span>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Primary CTA -->
-              <button class="w-full bg-secondary-container text-on-secondary-container hover:bg-[#ff952a] rounded-xl py-4 font-headline font-bold text-base shadow-lg shadow-secondary-container/20 transition-all active:scale-95 flex items-center justify-center gap-2">
-                Start Application <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
-              </button>
-              <p class="text-center text-xs text-on-surface-variant mt-4">Checking rates will not affect your credit score.</p>
+        <!-- State 2: LOADING (Analysis) -->
+        <div v-else-if="status === 'loading'" class="w-full max-w-xl text-center space-y-12">
+          <div class="relative w-32 h-32 mx-auto">
+            <!-- Spinner -->
+            <div class="absolute inset-0 border-4 border-primary/20 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="material-symbols-outlined text-4xl text-primary animate-pulse">psychology</span>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <transition name="list-fade" mode="out-in">
+              <h2 :key="currentMessage" class="text-2xl font-headline font-extrabold text-on-surface">
+                {{ currentMessage }}
+              </h2>
+            </transition>
+            
+            <!-- Progress Bar -->
+            <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden p-0 px-0.5">
+              <div 
+                class="h-full bg-primary rounded-full transition-all duration-300"
+                :style="{ width: `${progress}%` }"
+              ></div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div v-for="(msg, idx) in messageHistory" :key="idx" class="flex items-center justify-center gap-2 text-green-600 animate-in fade-in slide-in-from-top-2">
+              <span class="material-symbols-outlined text-[18px]">check_circle</span>
+              <span class="text-xs font-bold uppercase tracking-wider">{{ msg }}</span>
             </div>
           </div>
         </div>
-      </div>
+
+        <!-- State 3: DONE (Results) -->
+        <div v-else class="w-full space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
+          <header class="text-center space-y-4 mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-black uppercase tracking-widest">
+              Analysis Complete
+            </div>
+            <h2 class="text-4xl md:text-5xl font-headline font-black text-on-surface tracking-tight leading-tight">
+              Best Loan Options for You
+            </h2>
+            <p class="text-on-surface-variant max-w-2xl mx-auto font-medium">
+              Based on your financial profile, these options offer the best balance between cost and flexibility.
+            </p>
+          </header>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div 
+              v-for="(loan, idx) in results" 
+              :key="idx"
+              class="bg-white p-8 rounded-[2.5rem] border border-outline-variant/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all flex flex-col group relative overflow-hidden"
+            >
+              <div v-if="loan.tag" class="absolute -top-3 -right-3 bg-secondary-container text-on-secondary-container px-4 py-2 pt-5 rounded-bl-3xl font-black text-[10px] uppercase tracking-widest shadow-lg">
+                {{ loan.tag }}
+              </div>
+              
+              <div class="w-14 h-14 rounded-2xl bg-surface-container-low flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl">{{ loan.icon }}</span>
+              </div>
+              
+              <h3 class="text-xl font-headline font-extrabold text-on-surface mb-6">{{ loan.type }}</h3>
+              
+              <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="space-y-1">
+                  <span class="text-[9px] font-black uppercase text-outline tracking-wider block">APR</span>
+                  <span class="text-2xl font-headline font-black text-primary">{{ loan.apr }}%</span>
+                </div>
+                <div class="space-y-1 text-right">
+                  <span class="text-[9px] font-black uppercase text-outline tracking-wider block">Duration</span>
+                  <span class="text-2xl font-headline font-black">{{ loan.duration }}m</span>
+                </div>
+              </div>
+
+              <div class="p-4 bg-surface-container-low rounded-2xl border border-outline-variant/10 mb-8">
+                <span class="text-[9px] font-black uppercase text-outline tracking-wider block mb-1">Estimated Monthly</span>
+                <span class="text-xl font-headline font-extrabold text-on-surface">{{ formatCurrency(loan.payment) }}</span>
+              </div>
+
+              <button class="mt-auto w-full py-4 bg-primary text-on-primary rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                Select Option
+              </button>
+            </div>
+          </div>
+
+          <div class="flex justify-center pt-8">
+            <button 
+              @click="status = 'idle'"
+              class="flex items-center gap-2 text-outline hover:text-primary font-bold text-sm transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">refresh</span>
+              Restart Analysis
+            </button>
+          </div>
+        </div>
+      </transition>
     </main>
   </div>
 </template>
 
+<script setup>
+import { ref } from 'vue'
+
+const status = ref('idle') // idle | loading | done
+const currentMessage = ref('')
+const progress = ref(0)
+const messageHistory = ref([])
+
+const analysisSteps = [
+  'Analyzing your income...',
+  'Evaluating your expenses...',
+  'Checking risk profile...',
+  'Comparing loan options...'
+]
+
+const results = [
+  { type: 'Personal Loan', apr: 4.5, duration: 24, payment: 450, icon: 'person', tag: 'Best Match' },
+  { type: 'Car Loan', apr: 3.2, duration: 60, payment: 320, icon: 'directions_car', tag: 'Lowest Rate' },
+  { type: 'Microcredit', apr: 6.8, duration: 12, payment: 150, icon: 'savings', tag: 'Fast Approval' }
+]
+
+const startAnalysis = async () => {
+  status.value = 'loading'
+  messageHistory.value = []
+  progress.value = 0
+  
+  for (let i = 0; i < analysisSteps.length; i++) {
+    currentMessage.value = analysisSteps[i]
+    await new Promise(r => setTimeout(r, 1200))
+    messageHistory.value.push(currentMessage.value)
+    progress.value = ((i + 1) / analysisSteps.length) * 100
+  }
+  
+  await new Promise(r => setTimeout(r, 500))
+  status.value = 'done'
+}
+
+const formatCurrency = (val) => {
+  return new Intl.NumberFormat('en-MA', { style: 'currency', currency: 'MAD' }).format(val).replace('MAD', 'DH')
+}
+</script>
+
 <style scoped>
-/* Custom range slider styling for the simulator */
-input[type=range].custom-range {
-    -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-input[type=range].custom-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-    background: theme('colors.secondary-container');
-    cursor: pointer;
-    margin-top: -10px;
-    box-shadow: 0 4px 12px rgba(253, 129, 0, 0.3);
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
 }
-input[type=range].custom-range::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 4px;
-    cursor: pointer;
-    background: theme('colors.surface-variant');
-    border-radius: theme('borderRadius.DEFAULT');
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-30px) scale(1.02);
+}
+
+.list-fade-enter-active,
+.list-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.list-fade-enter-from,
+.list-fade-leave-to {
+  opacity: 0;
 }
 </style>
