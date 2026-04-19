@@ -8,7 +8,7 @@ import TransferAgentView from '../views/TransferAgentView.vue'
 // Define a placeholder component for unimplemented routes
 const PlaceholderView = {
   template: `
-    <div class="flex-1 ml-0 md:ml-72 min-h-screen p-8 lg:p-12 flex items-center justify-center">
+    <div class="flex-1 ml-0 md:ml-72 min-h-screen px-4 pt-24 pb-28 md:p-8 lg:p-12 flex items-center justify-center">
       <h2 class="font-headline text-3xl font-bold text-outline">{{ $route.name }}</h2>
     </div>
   `
@@ -19,7 +19,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard'
+      redirect: '/ai-assistant'
     },
     {
       path: '/ai-assistant',
@@ -65,6 +65,10 @@ const router = createRouter({
       path: '/profile',
       name: 'Profile',
       component: PlaceholderView
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/ai-assistant'
     }
   ]
 })

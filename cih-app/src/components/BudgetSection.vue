@@ -12,11 +12,11 @@
           <div class="flex gap-4">
             <div class="flex-1 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
               <span class="text-[10px] font-bold uppercase opacity-60 block mb-1">Monthly Income</span>
-              <span class="font-headline font-bold">8,450 DH</span>
+              <span class="font-headline font-bold">{{ formatCurrency(store.monthlyIncome) }}</span>
             </div>
             <div class="flex-1 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
               <span class="text-[10px] font-bold uppercase opacity-60 block mb-1">Active Budget</span>
-              <span class="font-headline font-bold">3,240 DH</span>
+              <span class="font-headline font-bold">{{ formatCurrency(store.monthlySpending) }}</span>
             </div>
           </div>
         </div>
@@ -72,10 +72,18 @@
 
             <button 
               type="submit"
+              :disabled="store.isSavingTransaction"
               class="w-full py-4 rounded-2xl bg-primary-container text-on-primary-container font-black uppercase tracking-widest text-xs hover:bg-primary hover:text-on-primary hover:shadow-lg transition-all active:scale-95"
             >
-              Log Transaction
+              {{ store.isSavingTransaction ? 'Saving...' : 'Log Transaction' }}
             </button>
+
+            <p v-if="store.transactionError" class="text-xs font-bold text-error">
+              {{ store.transactionError }}
+            </p>
+            <p v-else-if="store.transactionSuccess" class="text-xs font-bold text-green-600">
+              {{ store.transactionSuccess }}
+            </p>
           </form>
         </div>
       </div>
@@ -93,35 +101,43 @@
           </div>
           
           <div class="divide-y divide-outline-variant/5 max-h-[600px] overflow-y-auto custom-scrollbar">
-            <div 
-              v-for="tx in store.transactions" 
-              :key="tx.id"
-              class="px-8 py-6 flex items-center justify-between hover:bg-surface-container-low transition-colors group"
-            >
-              <div class="flex items-center gap-5">
-                <div 
-                  class="w-12 h-12 rounded-2xl flex items-center justify-center transition-all group-hover:scale-110 shadow-sm"
-                  :class="tx.type === 'income' ? 'bg-green-100 text-green-600 border border-green-200' : 'bg-surface-container-high text-on-surface-variant border border-outline-variant/10'"
-                >
-                  <span class="material-symbols-outlined">{{ getIcon(tx.category) }}</span>
-                </div>
-                <div>
-                  <h4 class="font-bold text-on-surface">{{ tx.description }}</h4>
-                  <div class="flex items-center gap-3 mt-1">
-                    <span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant">
-                      {{ tx.category }}
-                    </span>
-                    <span class="text-[10px] font-bold text-outline capitalize">{{ tx.date }}</span>
+            <div v-if="store.isLoading" class="px-8 py-10 text-sm font-bold text-outline">
+              Loading live transactions...
+            </div>
+            <div v-else-if="!store.transactions.length" class="px-8 py-10 text-sm font-bold text-outline">
+              No transactions returned by the API yet.
+            </div>
+            <template v-else>
+              <div 
+                v-for="tx in store.transactions" 
+                :key="tx.id"
+                class="px-8 py-6 flex items-center justify-between hover:bg-surface-container-low transition-colors group"
+              >
+                <div class="flex items-center gap-5">
+                  <div 
+                    class="w-12 h-12 rounded-2xl flex items-center justify-center transition-all group-hover:scale-110 shadow-sm"
+                    :class="tx.type === 'income' ? 'bg-green-100 text-green-600 border border-green-200' : 'bg-surface-container-high text-on-surface-variant border border-outline-variant/10'"
+                  >
+                    <span class="material-symbols-outlined">{{ getIcon(tx.category) }}</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-on-surface">{{ tx.description }}</h4>
+                    <div class="flex items-center gap-3 mt-1">
+                      <span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant">
+                        {{ tx.category }}
+                      </span>
+                      <span class="text-[10px] font-bold text-outline capitalize">{{ tx.date }}</span>
+                    </div>
                   </div>
                 </div>
+                <div 
+                  class="font-headline font-black text-lg"
+                  :class="tx.type === 'income' ? 'text-green-600' : 'text-on-surface'"
+                >
+                  {{ tx.type === 'income' ? '+' : '-' }}{{ formatCurrency(Math.abs(tx.amount)) }}
+                </div>
               </div>
-              <div 
-                class="font-headline font-black text-lg"
-                :class="tx.type === 'income' ? 'text-green-600' : 'text-on-surface'"
-              >
-                {{ tx.type === 'income' ? '+' : '-' }}{{ formatCurrency(Math.abs(tx.amount)) }}
-              </div>
-            </div>
+            </template>
           </div>
         </div>
       </div>
@@ -144,16 +160,20 @@ const form = reactive({
   category: ''
 })
 
-const handleSubmit = () => {
-  store.addTransaction({
-    description: form.description,
-    amount: Number(form.amount),
-    type: form.type,
-    category: form.category || (form.type === 'income' ? 'Income' : 'Other')
-  })
-  form.description = ''
-  form.amount = null
-  form.category = ''
+const handleSubmit = async () => {
+  try {
+    await store.addTransaction({
+      description: form.description,
+      amount: Number(form.amount),
+      type: form.type,
+      category: form.category || (form.type === 'income' ? 'Income' : 'Other')
+    })
+    form.description = ''
+    form.amount = null
+    form.category = ''
+  } catch {
+    // The store exposes the API error next to the form.
+  }
 }
 
 const formatCurrency = (val) => {

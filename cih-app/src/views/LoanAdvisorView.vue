@@ -1,6 +1,6 @@
 <template>
-  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen bg-surface relative overflow-x-hidden">
-    <main class="flex-1 flex flex-col items-center justify-center p-6 md:p-12 max-w-5xl mx-auto w-full">
+  <div class="ml-0 md:ml-72 flex-1 flex flex-col min-h-screen bg-surface relative overflow-x-hidden pb-24 md:pb-0">
+    <main class="flex-1 flex flex-col items-center justify-center px-4 pt-24 pb-8 sm:px-6 md:p-12 max-w-5xl mx-auto w-full">
       
       <!-- Transitions for smooth state switching -->
       <transition 
@@ -8,39 +8,41 @@
         mode="out-in"
       >
         <!-- State 1: IDLE (Marketing) -->
-        <div v-if="status === 'idle'" class="text-center space-y-8 animate-in fade-in zoom-in-95 duration-700">
+        <div v-if="status === 'idle'" class="text-center space-y-6 md:space-y-8 animate-in fade-in zoom-in-95 duration-700">
           <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-widest mb-4">
             <span class="material-symbols-outlined text-sm">auto_awesome</span>
             AI-Powered Lending
           </div>
           
-          <h1 class="text-5xl md:text-7xl font-headline font-black text-on-surface tracking-tight leading-tight max-w-4xl mx-auto">
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-headline font-black text-on-surface tracking-tight leading-tight max-w-4xl mx-auto">
             Find the <span class="text-primary italic">Best Loan</span> for Your Financial Situation
           </h1>
           
-          <p class="text-on-surface-variant text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+          <p class="text-on-surface-variant text-base md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
             Discover optimized lending options tailored to your real-time financial profile. Click below to start your personalized analysis.
           </p>
           
           <div class="pt-8">
             <button 
               @click="startAnalysis"
+              :disabled="store.isAnalyzingLoan"
               class="group relative bg-primary text-on-primary px-10 py-5 rounded-[2rem] font-headline font-black text-lg transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20 overflow-hidden"
             >
               <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none"></div>
               <span class="relative flex items-center justify-center gap-3">
-                Analyze My Situation
+                {{ store.isAnalyzingLoan ? 'Analyzing...' : 'Analyze My Situation' }}
                 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">bolt</span>
               </span>
             </button>
+            <p v-if="analysisError" class="mt-4 text-sm font-bold text-error">{{ analysisError }}</p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16 opacity-60">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6 pt-8 md:pt-16 opacity-60">
             <div class="flex flex-col items-center gap-2">
               <span class="material-symbols-outlined text-3xl">lock</span>
               <span class="text-xs font-bold uppercase tracking-widest">Secure & Private</span>
             </div>
-            <div class="flex flex-col items-center gap-2 border-x border-outline-variant/20 px-6">
+            <div class="flex flex-col items-center gap-2 sm:border-x border-outline-variant/20 px-6">
               <span class="material-symbols-outlined text-3xl">speed</span>
               <span class="text-xs font-bold uppercase tracking-widest">Instant Results</span>
             </div>
@@ -92,11 +94,11 @@
             <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-black uppercase tracking-widest">
               Analysis Complete
             </div>
-            <h2 class="text-4xl md:text-5xl font-headline font-black text-on-surface tracking-tight leading-tight">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-on-surface tracking-tight leading-tight">
               Best Loan Options for You
             </h2>
             <p class="text-on-surface-variant max-w-2xl mx-auto font-medium">
-              Based on your financial profile, these options offer the best balance between cost and flexibility.
+              Eligibility score: {{ store.loanAnalysis?.eligibility_score || 0 }}/100. These results come from the live loan advisor endpoint.
             </p>
           </header>
 
@@ -155,11 +157,15 @@
 
 <script setup>
 import { ref } from 'vue'
+import { computed } from 'vue'
+import { useFinanceStore } from '../stores/financeStore'
 
 const status = ref('idle') // idle | loading | done
 const currentMessage = ref('')
 const progress = ref(0)
 const messageHistory = ref([])
+const analysisError = ref('')
+const store = useFinanceStore()
 
 const analysisSteps = [
   'Analyzing your income...',
@@ -168,26 +174,53 @@ const analysisSteps = [
   'Comparing loan options...'
 ]
 
-const results = [
-  { type: 'Personal Loan', apr: 4.5, duration: 24, payment: 450, icon: 'person', tag: 'Best Match' },
-  { type: 'Car Loan', apr: 3.2, duration: 60, payment: 320, icon: 'directions_car', tag: 'Lowest Rate' },
-  { type: 'Microcredit', apr: 6.8, duration: 12, payment: 150, icon: 'savings', tag: 'Fast Approval' }
-]
+const loanMeta = {
+  personal: { apr: 4.5, duration: 24, icon: 'person' },
+  car: { apr: 3.2, duration: 60, icon: 'directions_car' },
+  home: { apr: 6.45, duration: 120, icon: 'home' },
+}
+
+const results = computed(() => {
+  const analysis = store.loanAnalysis
+  const eligible = analysis?.eligible_loans || []
+  const rejected = analysis?.rejected_loans || []
+  const products = eligible.length ? eligible : rejected
+
+  return products.map((type, index) => {
+    const meta = loanMeta[type] || { apr: 6.8, duration: 12, icon: 'savings' }
+    const principal = Math.max(store.netProfit * 6, 5000)
+    const payment = principal / Math.max(meta.duration, 1)
+    return {
+      type: `${type.charAt(0).toUpperCase()}${type.slice(1)} Loan`,
+      apr: meta.apr,
+      duration: meta.duration,
+      payment,
+      icon: meta.icon,
+      tag: eligible.includes(type) ? (index === 0 ? 'Best Match' : 'Eligible') : 'Improve Profile',
+    }
+  })
+})
 
 const startAnalysis = async () => {
   status.value = 'loading'
   messageHistory.value = []
   progress.value = 0
+  analysisError.value = ''
   
   for (let i = 0; i < analysisSteps.length; i++) {
     currentMessage.value = analysisSteps[i]
-    await new Promise(r => setTimeout(r, 1200))
+    await new Promise(r => setTimeout(r, 450))
     messageHistory.value.push(currentMessage.value)
     progress.value = ((i + 1) / analysisSteps.length) * 100
   }
   
-  await new Promise(r => setTimeout(r, 500))
-  status.value = 'done'
+  try {
+    await store.refreshLoanAnalysis()
+    status.value = 'done'
+  } catch (err) {
+    analysisError.value = err.message || 'Unable to complete loan analysis.'
+    status.value = 'idle'
+  }
 }
 
 const formatCurrency = (val) => {

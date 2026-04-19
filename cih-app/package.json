@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:hostinger": "vite build && cd dist && zip -r -FS ../hostinger-dist.zip .",
     "preview": "vite preview"
   },
   "dependencies": {

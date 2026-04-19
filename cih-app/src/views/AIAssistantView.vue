@@ -30,9 +30,9 @@
         <!-- Quick Context Switcher (hidden on small screens) -->
         <div class="hidden lg:flex bg-surface-container-low p-1 rounded-2xl border border-outline-variant/10">
           <button 
-            v-for="mode in modes.slice(0, 3)" 
+            v-for="mode in primaryModes" 
             :key="mode.name"
-            @click="store.activeMode = mode.name"
+            @click="handleModeSelect(mode.name)"
             class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all"
             :class="store.activeMode === mode.name ? 'bg-white text-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'"
           >
@@ -61,7 +61,7 @@
           </div>
 
           <!-- Interactive Suggestion Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 w-full max-w-6xl animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
             <button 
               v-for="(card, idx) in suggestionCards" 
               :key="idx"
@@ -92,12 +92,23 @@
               class="max-w-[85%] lg:max-w-[80%] p-8 rounded-[3rem] shadow-sm transition-all relative"
               :class="msg.role === 'user' 
                 ? 'bg-primary text-on-primary rounded-tr-none' 
-                : 'bg-white text-on-surface border border-outline-variant/10 rounded-tl-none pb-10'"
+                : 'bg-white text-on-surface border border-outline-variant/10 rounded-tl-none pb-14'"
             >
               <div v-if="msg.role === 'system'" class="absolute -top-3 -left-3 w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg">
                 <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
               </div>
               <p class="text-base font-medium leading-relaxed whitespace-pre-wrap">{{ msg.content }}</p>
+
+              <div v-if="msg.role === 'system' && msg.actions?.length" class="mt-6 flex flex-wrap gap-2">
+                <button
+                  v-for="action in msg.actions"
+                  :key="action"
+                  @click="handleAction(action)"
+                  class="px-4 py-2 rounded-xl border border-primary/10 bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95"
+                >
+                  {{ action }}
+                </button>
+              </div>
               
               <!-- Message Footer (Actionable feel) -->
               <div v-if="msg.role === 'system'" class="absolute bottom-4 left-8 flex gap-6 opacity-30 hover:opacity-100 transition-opacity border-t border-outline-variant/10 pt-3 w-[calc(100%-4rem)]">
@@ -139,7 +150,7 @@
           <button 
             v-for="mode in modes" 
             :key="mode.name"
-            @click="store.activeMode = mode.name"
+            @click="handleModeSelect(mode.name)"
             class="px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest whitespace-nowrap transition-all border"
             :class="store.activeMode === mode.name 
               ? 'bg-primary text-on-primary border-primary shadow-lg shadow-primary/20' 
@@ -192,7 +203,8 @@ const historyRef = ref(null)
 const suggestionCards = [
   { title: 'Analyze my spending this month', prompt: 'Show me my spending breakdown for April.', icon: 'insights', mode: 'Spending Coach', color: 'bg-primary-container text-white' },
   { title: 'Help me save for a car', prompt: 'I want to save for a new car.', icon: 'directions_car', mode: 'Goal Planner', color: 'bg-secondary-container text-white' },
-  { title: 'Build a monthly budget', prompt: 'How should I allocate my income this month?', icon: 'pie_chart', mode: 'Budget Manager', color: 'bg-surface-tint text-white' }
+  { title: 'Build a monthly budget', prompt: 'How should I allocate my income this month?', icon: 'pie_chart', mode: 'Budget Manager', color: 'bg-surface-tint text-white' },
+  { title: 'Make a secure transfer', prompt: 'I want to send money', icon: 'payments', mode: 'Transfer Agent', color: 'bg-primary text-white' }
 ]
 
 const modes = [
@@ -204,9 +216,39 @@ const modes = [
   { name: 'Transfer Agent', placeholder: 'Send 500 DH to Mohammed' }
 ]
 
+const primaryModes = computed(() => (
+  modes.filter(mode => ['General Banking Help', 'Spending Coach', 'Transfer Agent'].includes(mode.name))
+))
+
 const currentPlaceholder = computed(() => {
+  if (store.pendingTransfer?.stage === store.transferSteps.WAITING_FOR_RECIPIENT) {
+    return 'Type the exact full name, e.g. Mohammed Amine El Idrissi'
+  }
+
+  if (store.pendingTransfer?.stage === store.transferSteps.WAITING_FOR_AMOUNT) {
+    return 'Type the amount only, e.g. 500 DH'
+  }
+
+  if (store.pendingTransfer?.stage === store.transferSteps.WAITING_FOR_PIN) {
+    return 'Enter PIN to validate, demo PIN is 1234'
+  }
+
   return modes.find(m => m.name === store.activeMode)?.placeholder || 'Type here...'
 })
+
+const handleModeSelect = (modeName) => {
+  if (modeName === 'Transfer Agent') {
+    store.startWithPrompt('I want to send money', modeName)
+    return
+  }
+
+  store.activeMode = modeName
+}
+
+const handleAction = (action) => {
+  if (store.isTyping) return
+  store.sendMessage(action, store.activeMode)
+}
 
 const handleSend = () => {
   if (!userInput.value.trim() || store.isTyping) return

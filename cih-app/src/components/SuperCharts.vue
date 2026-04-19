@@ -102,7 +102,7 @@ const lineSeries = computed(() => [{
   data: store.balanceHistory.map(d => d.y)
 }])
 
-const lineOptions = {
+const lineOptions = computed(() => ({
   chart: {
     toolbar: { show: false },
     animations: { enabled: true, easing: 'easeinout', speed: 800 },
@@ -127,10 +127,10 @@ const lineOptions = {
     x: { show: false },
     y: { formatter: (v) => `${v.toLocaleString()} DH` }
   }
-}
+}))
 
 // DONUT CHART
-const donutOptions = {
+const donutOptions = computed(() => ({
   chart: { animations: { enabled: true, speed: 1000 } },
   labels: store.categoryChartData.labels,
   colors: ['#3b82f6', '#10b981', '#ef4444', '#f59e0b', '#8b5cf6'],
@@ -156,7 +156,7 @@ const donutOptions = {
   legend: { show: false },
   dataLabels: { enabled: false },
   tooltip: { theme: 'dark' }
-}
+}))
 
 // RADAR CHART
 const radarSeries = computed(() => [{
@@ -164,7 +164,7 @@ const radarSeries = computed(() => [{
   data: store.financialHealth.values
 }])
 
-const radarOptions = {
+const radarOptions = computed(() => ({
   chart: {
     toolbar: { show: false },
     dropShadow: { enabled: true, top: 0, left: 0, blur: 5, color: '#4f46e5', opacity: 0.2 }
@@ -179,7 +179,7 @@ const radarOptions = {
   },
   yaxis: { show: false },
   plotOptions: { radar: { polygons: { strokeColors: 'rgba(255,255,255,0.08)', fill: { colors: 'transparent' } } } }
-}
+}))
 
 // SIMULATE TIME CHANGE (Aesthetic Only for Demo)
 watch(activeTime, () => {
